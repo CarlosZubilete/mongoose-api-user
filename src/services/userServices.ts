@@ -15,15 +15,15 @@ export class UserService implements IUserService {
     return this.userRepository.find();
   }
 
-  // async getUser(id: string): Promise<User | null> {
-  //   return this.userRepository.findById(id);
-  // }
+  async findUserById(id: string): Promise<User | null> {
+    return this.userRepository.findById(id);
+  }
 
-  // async updateUser(id: string, data: Partial<User>): Promise<User> {
-  //   return this.userRepository.update(id, data);
-  // }
+  async updateUser(id: string, data: Partial<User>): Promise<User | null> {
+    return this.userRepository.update(id, data);
+  }
 
-  // async deleteUser(id: string): Promise<boolean> {
-  //   return this.userRepository.delete(id);
-  // }
+  async deleteUser(id: string): Promise<boolean> {
+    return this.userRepository.delete(id);
+  }
 }
