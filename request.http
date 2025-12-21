@@ -1,12 +1,27 @@
+###
+GET http://localhost:4000/api/v1/users/ HTTP/1.1
+### 
+GET http://localhost:4000/api/v1/users/694760fb6bc836b9254d1b06 HTTP/1.1
+### 
 POST http://localhost:4000/api/v1/users HTTP/1.1 
 Content-Type: application/json
 
 {
-  "id": "12345",
-  "name": "John Doe",
-  "username": "johnDoe",
-  "email": "johndoe@example.com"
+  "name": "Carlos Tevez",
+  "username": "carlostevez",
+  "email": "carlostevez@example.com"
+}
+
+
+###
+PUT http://localhost:4000/api/v1/users/694760736bc836b9254d1b02 HTTP/1.1 
+Content-Type: application/json
+
+{
+  "name": "Lionel Andres Messi"
 }
 
 ### 
-GET http://localhost:4000/api/v1/users HTTP/1.1 
+DELETE  http://localhost:4000/api/v1/users/69476afcffbf2548819b1011 HTTP/1.1 
+
+

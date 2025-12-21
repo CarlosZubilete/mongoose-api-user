@@ -2,6 +2,7 @@
 import app from "@server/server";
 import dotenv from "dotenv";
 import routes from "@routes/routes";
+import "@config/mongodb"; // Import the MongoDB configuration to establish the connection
 
 // Load environment variables from .env file
 dotenv.config();
