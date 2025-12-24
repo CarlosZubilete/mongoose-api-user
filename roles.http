@@ -8,6 +8,8 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4000/api/v1/roles/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NGFlNzE3YmU0YTE0YWRjNjI1M2QyNCIsImVtYWlsIjoiY2FybG9zdGVzdEBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiY2FybG9zLXRlc3QiLCJpYXQiOjE3NjY1NTE1MzUsImV4cCI6MTc2NjU1NTEzNX0.OK16XDX-uMZNL6NMAJQkkp19s0hdsqecWQfkKZ4GJPQ
+
 ### 
 GET http://localhost:4000/api/v1/roles/694a1e4c48a2388b0c25aaff HTTP/1.1
 ###
