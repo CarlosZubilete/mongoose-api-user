@@ -1,7 +1,9 @@
+import { Document } from "mongoose";
 import { IRepository, Query } from "./RepositoryTypes";
 
-export interface Role {
+export interface Role extends Document {
   name: string;
+  permissions: string[];
 }
 
 export interface IRoleRepository extends IRepository<Role> {}

@@ -1,5 +1,6 @@
 import { Document } from "mongoose";
 import { IRepository, Query } from "./RepositoryTypes";
+import { Role } from "./RoleTypes";
 
 export interface User extends Document {
   id: string;
@@ -8,6 +9,8 @@ export interface User extends Document {
   email: string;
   password: string;
   comparePassword(password: string): Promise<boolean>;
+  roles?: Role[];
+  permissions?: string[];
 }
 
 export interface IUserRepository extends IRepository<User> {
