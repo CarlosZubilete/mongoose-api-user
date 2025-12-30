@@ -1,20 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "es2021",
     "outDir": "./dist", // exit directory for compiled files 
     "rootDir": "./src", // root directory of source files
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "module": "commonjs",
     "baseUrl": "./src", // base for the paths
     "paths": {
       "@controllers/*": ["controllers/*"] ,
       "@services/*": ["services/*"],
       "@repositories/*": ["repositories/*"],
-      "@models/*": ["src/models/*"],
+      "@models/*": ["models/*"],
       "@routes/*": ["routes/*"],
       "@server/*": ["server/*"],
-      "@config/*": ["config/*"]
+      "@config/*": ["config/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@secrets": ["secrets"]
+      // "@/*": ["*"]
     },
     "typeRoots": ["@types", "node_modules/@types"]
   },

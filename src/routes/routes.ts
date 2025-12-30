@@ -22,8 +22,8 @@ import {
   findPosts,
   updatePost,
 } from "@controllers/postsControllers";
-import { getPermissions, verifyToken } from "middlewares/auth";
-import { checkRoles } from "middlewares/roles";
+import { getPermissions, verifyToken } from "@middlewares/auth";
+import { checkRoles } from "@middlewares/roles";
 
 const router: Router = Router();
 

@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { UserRepository } from "@repositories/userRepositories";
 import { UserService } from "@services/userServices";
-import { JWT_SECRET } from "secrets";
+import { JWT_SECRET } from "@secrets";
 import { IUserRepository, IUserService, User } from "types/UserTypes";
-import { permissions, Method } from "types/PermissionsTypes";
+import { permissions, Method } from "../types/PermissionsTypes"; // explicit path because of tsconfig paths issue
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);

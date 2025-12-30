@@ -7,7 +7,7 @@ const PostsSchema: Schema = new Schema<Post>(
     description: { type: String },
     content: { type: String },
     featuredImageUrl: { type: String },
-    authorId: { type: String },
+    author: { type: String },
   },
   {
     timestamps: true,
