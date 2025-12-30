@@ -1,4 +1,4 @@
-import { RoleModel } from "models/Roles";
+import { RoleModel } from "@models/Roles";
 import { Query } from "types/RepositoryTypes";
 import { IRoleRepository, Role } from "types/RoleTypes";
 

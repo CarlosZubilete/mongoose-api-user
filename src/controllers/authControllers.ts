@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "secrets";
+import { JWT_SECRET } from "@secrets";
 import { UserRepository } from "@repositories/userRepositories";
 import { UserService } from "@services/userServices";
 import { IUserRepository, IUserService, User } from "types/UserTypes";

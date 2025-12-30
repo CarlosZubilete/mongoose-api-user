@@ -1,4 +1,4 @@
-import { PostsModel } from "models/Posts";
+import { PostsModel } from "@models/Posts";
 import { IPostRepository, Post } from "types/PostTypes";
 import { Query } from "types/RepositoryTypes";
 
