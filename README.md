@@ -6,13 +6,13 @@ A **REST API** for comprehensive user management built with **Express.js**, **Ty
 
 ## Docker Hub Repository
 
-This image is available on Docker Hub: **[carloszubilete/mongoose-api-user](https://hub.docker.com/r/carloszubilete/mongoose-api-user)**
+This image is available on Docker Hub: **[happykitten/mongoose-api-user](https://hub.docker.com/r/happykitten/mongoose-api-user)**
 
 ### Quick Docker Start
 
 ```bash
 # Pull the image
-docker pull carloszubilete/mongoose-api-user
+docker pull happykitten/mongoose-api-user
 
 # Clone and run with Docker Compose (includes MongoDB)
 git clone https://github.com/CarlosZubilete/mongoose-api-user.git
