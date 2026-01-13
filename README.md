@@ -1,6 +1,28 @@
 # Mongoose API User Management System
 
-A production-ready REST API for comprehensive user management built with Express.js, TypeScript, and MongoDB. This application implements robust authentication, role-based access control (RBAC), and a multi-entity domain model with complete CRUD operations.
+A **REST API** for comprehensive user management built with **Express.js**, **TypeScript**, and **MongoDB**. This application implements robust authentication, role-based access control (RBAC), and a multi-entity domain model with complete CRUD operations. Available as a containerized Docker image for seamless deployment.
+
+---
+
+## Docker Hub Repository
+
+This image is available on Docker Hub: **[carloszubilete/mongoose-api-user](https://hub.docker.com/r/carloszubilete/mongoose-api-user)**
+
+### Quick Docker Start
+
+```bash
+# Pull the image
+docker pull carloszubilete/mongoose-api-user
+
+# Clone and run with Docker Compose (includes MongoDB)
+git clone https://github.com/CarlosZubilete/mongoose-api-user.git
+cd mongoose-api-user
+docker compose up -d
+
+# API available at: http://localhost:4000
+```
+
+**For detailed Docker documentation**, see the **[Docker Deployment](#docker-deployment)** section below.
 
 ---
 
@@ -12,6 +34,9 @@ A production-ready REST API for comprehensive user management built with Express
 4. [API Documentation](#api-documentation)
 5. [Project Structure](#project-structure)
 6. [Environment Configuration](#environment-configuration)
+7. [Scripts Reference](#scripts-reference)
+8. [Docker Deployment](#docker-deployment)
+9. [Support & Documentation](#support--documentation)
 
 ---
 
@@ -39,16 +64,16 @@ The application follows enterprise-grade architectural patterns including the Re
 
 ### Key Features
 
-- ✅ JWT-based authentication and authorization
-- ✅ Bcrypt password hashing with configurable salt rounds
-- ✅ Role-based access control (RBAC) with method and scope permissions
-- ✅ MongoDB integration with Mongoose ODM
-- ✅ Repository Pattern for data access abstraction
-- ✅ Dependency Injection for loose coupling and testability
-- ✅ Comprehensive error handling and validation
-- ✅ HTTP request logging with Morgan middleware
-- ✅ Environment-based configuration management
-- ✅ TypeScript strict mode for maximum type safety
+- JWT-based authentication and authorization
+- Bcrypt password hashing with configurable salt rounds
+- Role-based access control (RBAC) with method and scope permissions
+- MongoDB integration with Mongoose ODM
+- Repository Pattern for data access abstraction
+- Dependency Injection for loose coupling and testability
+- Comprehensive error handling and validation
+- HTTP request logging with Morgan middleware
+- Environment-based configuration management
+- TypeScript strict mode for maximum type safety
 
 ---
 
@@ -562,18 +587,6 @@ pnpm test
 
 ---
 
-## Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
 ## Docker Deployment
 
 ### Quick Start with Docker
@@ -694,12 +707,6 @@ For detailed implementation guides, refer to the documentation in the `doc/` dir
 
 ---
 
-## Authors
-
-**Open Source Community**
-
----
-
 ## Acknowledgments
 
 - Express.js documentation and community
@@ -709,12 +716,24 @@ For detailed implementation guides, refer to the documentation in the `doc/` dir
 
 ---
 
-**Last Updated**: December 30, 2025  
-**Version**: 1.0.0  
-**Status**: Production Ready ✅
+## Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
-## License
+## Authors
 
-This project is licensed under the ISC License - see the `LICENSE` file for details.
+**Open Source Community**
+
+---
+
+**Last Updated**: December 30, 2025  
+**Version**: 1.0.0  
+**Status**: Production Ready

@@ -19,3 +19,5 @@ pnpm-lock.yaml
 
 # MongoDB persistent data 
 mongodb/mongo-data/*
+
+DOCKER_HUB_DESCRIPTION.md
