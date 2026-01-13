@@ -1,0 +1,149 @@
+# ============================================================================
+# PROFESSIONAL DOCKER COMPOSE FOR MONGOOSE-API-USER WITH MONGODB
+# Orchestrates both MongoDB and the Express API with proper networking
+# ============================================================================
+version: "3.9"
+
+services:
+  # =========================================================================
+  # MONGODB SERVICE - NoSQL Database
+  # =========================================================================
+  # Runs MongoDB 6.0 with authentication enabled
+  # The database is initialized with users and sample data via init-mongo.js
+  mongodb:
+    image: mongo:6.0.27-jammy
+    container_name: nosqldb
+    restart: unless-stopped
+
+    # Load secrets from files for sensitive credentials
+    # This is more secure than hardcoding passwords in environment variables
+    secrets:
+      - mongo_root_username
+      - mongo_root_password
+
+    environment:
+      # Use secret files to set root credentials
+      # MongoDB will read from /run/secrets/mongo_root_username and password
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_root_username
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_root_password
+
+    # Expose MongoDB on port 27030 (mapped from internal port 27017)
+    # This matches your .env configuration: mongodb://...@127.0.0.1:27030/...
+    ports:
+      - "27030:27017"
+
+    # Volume mounts for data persistence and initialization
+    volumes:
+      # Persist MongoDB data between container restarts
+      # Located at ./mongodb/mongo-data in your project
+      - ./mongodb/mongo-data:/data/db
+
+      # Initialize database with users and sample data on first startup
+      # init-mongo.js creates the api-user_user and api-user_db
+      - ./mongodb/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+
+    # MongoDB command with authentication enabled and listening on all interfaces
+    # This allows the API container to connect from the same Docker network
+    command: ["mongod", "--auth", "--bind_ip_all"]
+
+    # Connect to custom network for service-to-service communication
+    networks:
+      - mongoose-network
+
+    # Health check to verify MongoDB is ready for connections
+    # Waits 10s before first check, checks every 5s, fails after 5 attempts
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # =========================================================================
+  # API SERVICE - Express.js REST API with TypeScript
+  # =========================================================================
+  # Runs the compiled Node.js application on port 4000
+  api:
+    # Use the image you built with: docker build -t mongoose-api-user:0.0.1 .
+    image: mongoose-api-user:0.0.1
+
+    # Service container name for easy reference
+    container_name: api-service
+
+    # Restart policy: automatically restart if container crashes
+    restart: unless-stopped
+
+    # Map port 4000 from container to host (access at http://localhost:4000)
+    ports:
+      - "4000:4000"
+
+    # Load environment variables from .env file in the project root
+    # Includes: MONGODB_URL_STRING, JWT_SECRET, NODE_ENV, PORT, etc.
+    env_file:
+      - .env
+
+    # Override specific environment variable for MongoDB connection
+    # Instead of 127.0.0.1, use 'mongodb' (the service name)
+    # Docker's internal DNS resolves 'mongodb' to the MongoDB container's IP
+    # environment:
+    # Replace localhost with the MongoDB service hostname
+    # This is crucial: containers can't access localhost, they use service names
+    # MONGODB_URL_STRING: "mongodb://api-user_user:apiuserpassword@mongodb:27017/api-user_db?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=mongosh+2.5.10"
+    # NOTE: Make sure change @127.0.0.1:27030 by @mongodb:27017 in the connection string above
+
+    # Connect to the same network as MongoDB
+    # This enables service-to-service communication via DNS
+    networks:
+      - mongoose-network
+
+    # Wait for MongoDB to be ready before starting the API
+    # This prevents "connection refused" errors on startup
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+    # Health check for the API service
+    # Verifies the application is responding on port 4000
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:4000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+# ============================================================================
+# NAMED VOLUMES
+# ============================================================================
+# mongo-data: Persists MongoDB data between container restarts
+volumes:
+  mongo-data:
+    driver: local
+    name: mongo_data
+
+# ============================================================================
+# DOCKER SECRETS
+# ============================================================================
+# Store sensitive credentials securely without exposing them in environment
+secrets:
+  # MongoDB root username loaded from file
+  mongo_root_username:
+    file: ./mongodb/db/mongodb_root_username.txt
+
+  # MongoDB root password loaded from file
+  mongo_root_password:
+    file: ./mongodb/db/mongodb_root_password.txt
+
+# ============================================================================
+# CUSTOM NETWORK
+# ============================================================================
+# Creates an isolated network for secure inter-container communication
+# Services communicate using service names as hostnames
+networks:
+  mongoose-network:
+    driver: bridge

@@ -1,7 +1,8 @@
 ### 
 POST http://localhost:4000/api/v1/users HTTP/1.1 
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NThhZGRlZWQ2OWM0NDBiZDc2MzYwMCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzY3NDE5NzQzLCJleHAiOjE3Njc0MjMzNDN9.0Jh5ofu_68oyfTb5RF6ikJcA2_NmW6YUf1D2UzmLU0E
+
 {
   "name": "test",
   "username": "test",
@@ -12,8 +13,7 @@ Authorization: Bearer
 
 ###
 GET http://localhost:4000/api/v1/users/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NGUwM2RkZDM5MzEwZjY5YzhkNjk0ZCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzY2OTc5MjQzLCJleHAiOjE3NjY5ODI4NDN9.ilWZDpiF2aW9J_-U27HdJ7LtSpyOyZFoMUKnjSNJ9bw
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NThhZGRlZWQ2OWM0NDBiZDc2MzYwMCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzY3NDE5NzQzLCJleHAiOjE3Njc0MjMzNDN9.0Jh5ofu_68oyfTb5RF6ikJcA2_NmW6YUf1D2UzmLU0E
 ### 
 GET http://localhost:4000/api/v1/users/694e041ed39310f69c8d6955 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NGUwM2RkZDM5MzEwZjY5YzhkNjk0ZCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzY2OTc5MjQzLCJleHAiOjE3NjY5ODI4NDN9.ilWZDpiF2aW9J_-U27HdJ7LtSpyOyZFoMUKnjSNJ9bw

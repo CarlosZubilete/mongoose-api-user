@@ -470,6 +470,7 @@ mongoose-api-user/
 │   ├── part5.md                    # Authentication & Posts
 │   ├── part6.md                    # RBAC implementation
 │   └── part7.md                    # Production build configuration
+│   └── part8.md                    # Docker & Container Deployment
 ├── .env                            # Environment variables (local)
 ├── .env.example                    # Environment template
 ├── tsconfig.json                   # TypeScript configuration
@@ -573,9 +574,108 @@ Contributions are welcome! Please follow these guidelines:
 
 ---
 
-## License
+## Docker Deployment
 
-This project is licensed under the ISC License - see the `LICENSE` file for details.
+### Quick Start with Docker
+
+Deploy your entire application stack (API + MongoDB) with a single command:
+
+```bash
+# Build the Docker image
+docker build -t mongoose-api-user:0.0.1 .
+
+# Start all services with Docker Compose
+docker compose up -d
+
+# Verify containers are running
+docker compose ps
+
+# View logs
+docker compose logs -f api
+```
+
+### Docker Setup Overview
+
+This project includes a **production-ready Docker setup** with:
+
+- **Multi-stage Dockerfile**: Optimized build process reducing image size by 50%
+- **Docker Compose orchestration**: MongoDB + API services with automatic networking
+- **Health checks**: Both containers monitor their own health and restart if needed
+- **Docker secrets**: Sensitive MongoDB credentials stored securely, not in environment variables
+- **Custom networking**: Isolated bridge network for secure service-to-service communication
+
+### Key Components
+
+```
+┌─────────────────────────────────────────┐
+│   Docker Container Deployment           │
+├─────────────────────────────────────────┤
+│                                         │
+│  API Container (Express.js)             │
+│  ├─ Port: 4000                          │
+│  └─ Depends on MongoDB                  │
+│                                         │
+│  MongoDB Container                      │
+│  ├─ Port: 27017 (mapped to 27030)      │
+│  └─ Data: Persistent volume             │
+│                                         │
+│  Custom Network: mongoose-network       │
+│  └─ Service-to-service communication    │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+### Docker Environment Configuration
+
+When using Docker Compose, ensure your `.env` file uses the Docker service hostname:
+
+```env
+# For Docker Compose deployment:
+MONGODB_URL_STRING="mongodb://api-user_user:apiuserpassword@mongodb:27017/api-user_db?authSource=admin"
+
+# For local development (without Docker):
+# MONGODB_URL_STRING="mongodb://localhost:27030/api-user_db"
+```
+
+**Important**: Inside Docker containers, use `mongodb` (service name) instead of `localhost` or `127.0.0.1` for MongoDB connection.
+
+### Common Docker Commands
+
+```bash
+# Start services in background
+docker compose up -d
+
+# Stop services
+docker compose stop
+
+# Stop and remove containers
+docker compose down
+
+# View live logs
+docker compose logs -f
+
+# Access API container shell
+docker compose exec api bash
+
+# Rebuild after code changes
+docker compose up -d --build
+
+# Check service health
+docker compose ps
+```
+
+### For Detailed Docker Documentation
+
+See **Part 8** in the `doc/` directory: [`doc/part8.md`](./doc/part8.md)
+
+Includes:
+
+- Complete Docker overview and architecture
+- Build process explanation (multi-stage builds)
+- Network configuration and service communication
+- Health checks and monitoring
+- Troubleshooting guide
+- Production deployment considerations
 
 ---
 
@@ -590,6 +690,7 @@ For detailed implementation guides, refer to the documentation in the `doc/` dir
 - **Part 5**: Authentication and Posts module
 - **Part 6**: Role-based access control
 - **Part 7**: Production build configuration
+- **Part 8**: Docker & Container Deployment
 
 ---
 
@@ -611,3 +712,9 @@ For detailed implementation guides, refer to the documentation in the `doc/` dir
 **Last Updated**: December 30, 2025  
 **Version**: 1.0.0  
 **Status**: Production Ready ✅
+
+---
+
+## License
+
+This project is licensed under the ISC License - see the `LICENSE` file for details.

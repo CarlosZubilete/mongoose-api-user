@@ -1,0 +1,7 @@
+mongo-data
+.git
+.gitignore
+node_modules
+*.log
+docs
+*.md

@@ -1,0 +1,26 @@
+services:
+  mongodb:
+    image: mongo:6.0.27-jammy
+    container_name: nosqldb
+    restart: unless-stopped
+    secrets:
+      - mongo_root_username
+      - mongo_root_password
+    environment:
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_root_username
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_root_password
+    ports:
+      - "27030:27017"
+    volumes:
+      - ./mongo-data:/data/db
+      - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    command: ["mongod", "--auth", "--bind_ip_all"]
+
+volumes:
+  mongo-data:
+
+secrets:
+  mongo_root_username:
+    file: ./db/mongodb_root_username.txt
+  mongo_root_password:
+    file: ./db/mongodb_root_password.txt
